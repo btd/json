@@ -30,16 +30,16 @@ class JsonParsingSpec extends Specification {
     }
 
     "parse array with booleans and arrays" in {
-      run("""[true]""") must be equalTo (Arr(True))
-      run("""[null, false]""") must be equalTo (Arr(Null, False))
-      run("""[[true, false], [null]]""") must be equalTo (Arr(Arr(True, False), Arr(Null)))
-      run("""[[null, []], true, []]""") must be equalTo (Arr(Arr(Null, Arr()), True, Arr()))
+      run("""[true]""") must be equalTo (Arr(true))
+      run("""[null, false]""") must be equalTo (Arr(Null, false))
+      run("""[[true, false], [null]]""") must be equalTo (Arr(Arr(true, false), Arr(Null)))
+      run("""[[null, []], true, []]""") must be equalTo (Arr(Arr(Null, Arr()), true, Arr()))
     }
 
     "parse objects" in {
       run("""{}""") must be equalTo (Obj())
       run("""{"key": "value"}""") must be equalTo (Obj(("key", Str("value"))))
-      run("""{"key": "value" , "key" : true, "key" : false, "key" : null, "key" : [], "key" : {}}""") must be equalTo (Obj(("key", "value"),("key", True), ("key", False), ("key", Null), ("key", Arr()), ("key", Obj())))
+      run("""{"key": "value" , "key" : true, "key" : false, "key" : null, "key" : [], "key" : {}}""") must be equalTo (Obj(("key", "value"),("key", true), ("key", false), ("key", Null), ("key", Arr()), ("key", Obj())))
       run("""{"key": {"key": [{}, {}]}}""") must be equalTo (Obj(("key", Obj(("key", Arr(Obj(), Obj()))))))
     }
   }

@@ -20,4 +20,6 @@ package object json {
   val JsonParser = reader.JsonParser
 
   implicit def stringToJsonStr(str: String) = Str(str)
+
+  implicit def booleanToJsonBool(bool: Boolean) = if(bool) True else False
 }
