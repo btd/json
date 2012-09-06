@@ -6,11 +6,7 @@ import ast._
 import java.io.{Reader, StringReader}
 
 object Token extends Enumeration {
-  val ObjectBegin, 
-    ObjectEnd,
-    ArrayBegin, 
-    ArrayEnd, 
-    DoubleQuoteStrBegin, Null, True, False, Eof = Value
+  val ObjectBegin, ObjectEnd, ArrayBegin, ArrayEnd, DoubleQuoteStrBegin, Null, True, False, Eof = Value
 }
 
 object Scope extends Enumeration {
@@ -429,6 +425,11 @@ class JsonParser(r: JsonReader) {
     }
   }
   def parse(): Value = processToken(r.peek())
+}
+
+object JsonParser {
+  def parse(str: String) = new JsonParser(new JsonReader(str)).parse()
+  def parse(reader: Reader) = new JsonParser(new JsonReader(reader)).parse()
 }
 
 class ParserException(str: String) extends Exception(str)

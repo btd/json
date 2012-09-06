@@ -15,10 +15,10 @@ object Jsonbench extends Benchmark {
     val mapper = new ObjectMapper
     benchmark("Jackson") { mapper.readValue(json, classOf[JsonNode]) }
     benchmark("lift-json") { JsonParser.parse(json) }
-    benchmark("My") { new com.github.btd.json.reader.JsonParser(new com.github.btd.json.reader.JsonReader(json)).parse() }
+    benchmark("My") { com.github.btd.json.JsonParser.parse(json) }
   }
 
-  def benchmark(name: String)(f: => Any) = run(name, 100000, 100000)(f)
+  def benchmark(name: String)(f: => Any) = run(name, 1000000, 1000000)(f)
 
   val json = """
 {

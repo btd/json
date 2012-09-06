@@ -1,24 +1,22 @@
 package com.github.btd.json
 
 import org.specs2.mutable._
-import ast._
-import reader._
 
 
 class JsonParsingSpec extends Specification {
 
-  def run(str: String) = new JsonParser(new JsonReader(str)).parse()
+  def run(str: String) = JsonParser.parse(str)
  
   "json parser " should {
     "parse array with strings and empty arrays" in {
-      run("""["asdasd","asdas"]""") must be equalTo (Arr(List(Str("asdasd"), Str("asdas"))))
-      run("""["asdasd"]""") must be equalTo (Arr(List(Str("asdasd"))))
-      run("""[]""") must be equalTo (Arr(List()))
-      run("""["sdfsd", []]""") must be equalTo (Arr(List(Str("sdfsd"), Arr(List()))))
-      run("""["sdfsd", ["asdfsad"]]""") must be equalTo (Arr(List(Str("sdfsd"), Arr(List(Str("asdfsad"))))))
-      run("""[[[]]]""") must be equalTo (Arr(List(Arr(List(Arr(List()))))))
-      run("""[[[], []]]""") must be equalTo (Arr(List(Arr(List(Arr(List()), Arr(List()))))))
-      run("""["sdfsd", [[],[]], ["asdfsad", []]]""") must be equalTo (Arr(List(Str("sdfsd"), Arr(List(Arr(List()), Arr(List()))), Arr(List(Str("asdfsad"), Arr(List()))))))
+      run("""["asdasd","asdas"]""") must be equalTo (Arr("asdasd", "asdas"))
+      run("""["asdasd"]""") must be equalTo (Arr("asdasd"))
+      run("""[]""") must be equalTo (Arr())
+      run("""["sdfsd", []]""") must be equalTo (Arr("sdfsd", Arr()))
+      run("""["sdfsd", ["asdfsad"]]""") must be equalTo (Arr("sdfsd", Arr("asdfsad")))
+      run("""[[[]]]""") must be equalTo (Arr(Arr(Arr())))
+      run("""[[[], []]]""") must be equalTo (Arr(Arr(Arr(), Arr())))
+      run("""["sdfsd", [[],[]], ["asdfsad", []]]""") must be equalTo (Arr("sdfsd", Arr(Arr(), Arr()), Arr("asdfsad", Arr())))
     }
 
     //TODO specs for strings
@@ -41,7 +39,7 @@ class JsonParsingSpec extends Specification {
     "parse objects" in {
       run("""{}""") must be equalTo (Obj())
       run("""{"key": "value"}""") must be equalTo (Obj(("key", Str("value"))))
-      run("""{"key": "value" , "key" : true, "key" : false, "key" : null, "key" : [], "key" : {}}""") must be equalTo (Obj(("key", Str("value")),("key", True), ("key", False), ("key", Null), ("key", Arr()), ("key", Obj())))
+      run("""{"key": "value" , "key" : true, "key" : false, "key" : null, "key" : [], "key" : {}}""") must be equalTo (Obj(("key", "value"),("key", True), ("key", False), ("key", Null), ("key", Arr()), ("key", Obj())))
       run("""{"key": {"key": [{}, {}]}}""") must be equalTo (Obj(("key", Obj(("key", Arr(Obj(), Obj()))))))
     }
   }
