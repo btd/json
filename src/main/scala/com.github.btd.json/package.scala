@@ -17,9 +17,19 @@ package object json {
   type Obj = ast.Obj
   val Obj = ast.Obj
 
+  type NumDouble = ast.NumDouble
+  val NumDouble = ast.NumDouble
+
+  type NumLong = ast.NumLong
+  val NumLong = ast.NumLong
+
   val JsonParser = reader.JsonParser
 
   implicit def stringToJsonStr(str: String) = Str(str)
 
   implicit def booleanToJsonBool(bool: Boolean) = if(bool) True else False
+
+  implicit def doubleToNumDouble(double: Double) = NumDouble(double)
+
+  implicit def longToNumLong(long: Long) = NumLong(long)
 }

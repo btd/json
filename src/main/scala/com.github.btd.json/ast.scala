@@ -12,7 +12,9 @@ object Null extends Value
 
 case class Str(value: String) extends Value
 
-case class Num(double: Double) extends Value
+case class NumDouble(num: Double) extends Value
+
+case class NumLong(num: Long) extends Value
 
 case class Arr(elements: List[Value]) extends Value
 

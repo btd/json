@@ -9,7 +9,8 @@ class JsonParsingSpec extends Specification {
  
   "json parser " should {
     "parse array with strings and empty arrays" in {
-      run("""["asdasd","asdas"]""") must be equalTo (Arr("asdasd", "asdas"))
+      //run("""["asdasd","asdas"]""") must be equalTo (Arr("asdasd", "asdas"))
+      run("""["a\u0031b\n","asdas"]""") must be equalTo (Arr("a1b\n", "asdas"))
       run("""["asdasd"]""") must be equalTo (Arr("asdasd"))
       run("""[]""") must be equalTo (Arr())
       run("""["sdfsd", []]""") must be equalTo (Arr("sdfsd", Arr()))
@@ -19,7 +20,10 @@ class JsonParsingSpec extends Specification {
       run("""["sdfsd", [[],[]], ["asdfsad", []]]""") must be equalTo (Arr("sdfsd", Arr(Arr(), Arr()), Arr("asdfsad", Arr())))
     }
 
-    //TODO specs for strings
+    "parse array with numbers" in {
+      run("""[-0, 0, 0.1, "123", 100, null]""") must be equalTo (Arr(0, 0, 0.1, "123", 100, Null))
+    }
+
     //TODO specs on errors
 
     "parse array with nulls and arrays" in {
