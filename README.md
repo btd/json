@@ -5,7 +5,7 @@ Currently it is json parsing and AST.
 
 To parse:
 ```scala
-import com.github.btd.json._
+import com.github.btd.json._//it is only one import you never need to work with this library
 
 JsonParser.parse("""{"key": "value" , "key" : true, "key" : false, "key" : null, "key" : [], "key" : {}}""")
 //returns Obj(("key", "value"),("key", true), ("key", false), ("key", Null), ("key", Arr()), ("key", Obj()))
@@ -13,14 +13,23 @@ JsonParser.parse("""{"key": "value" , "key" : true, "key" : false, "key" : null,
 
 A bit later i will add printing (scala versions 2.9.* and 2.10.*) and serialization (scala version 2.10.*).
 
+
 Benchmarks
-__________
+----------
 For benchmarking i used lift-json benchmark, but add my implementation.
 
 My configuration:
 
 * CPU: i5 4 Core
 * RAM: 12 Gb
+
+Java:
+```
+mac:json den$ java -version
+java version "1.6.0_35"
+Java(TM) SE Runtime Environment (build 1.6.0_35-b10-428-11M3811)
+Java HotSpot(TM) 64-Bit Server VM (build 20.10-b01-428, mixed mode)
+```
 
 Results (you can try on your machine, and say me results - i am interesting):
 ```
@@ -43,5 +52,5 @@ My  4819ms
 ```
 
 License
-_______
+-------
 Apache Software Foundation 2.0
