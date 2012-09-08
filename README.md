@@ -17,7 +17,7 @@ JsonParser.parse("""{"key": "value" , "key" : true, "key" : false, "key" : null,
 
 To print:
 ```scala
-import com.github.btd.json._//it is only one import you never need to work with this library
+import com.github.btd.json._
 
 JsonPrinter.compact(Arr())
 //returns "[]"
