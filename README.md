@@ -3,6 +3,8 @@ Scala Json
 I was tired with current implementations of json libraries in scala. That is why i wrote another one. I do not worry that anyone will use it. It is written fully by me for myself.
 Currently it is json parsing and AST.
 
+Main ideas i taked from usage of google gson and lift json.
+
 To parse:
 ```scala
 import com.github.btd.json._//it is only one import you never need to work with this library
@@ -11,7 +13,7 @@ JsonParser.parse("""{"key": "value" , "key" : true, "key" : false, "key" : null,
 //returns Obj(("key", "value"),("key", true), ("key", false), ("key", Null), ("key", Arr()), ("key", Obj()))
 ```
 
-A bit later i will add printing (scala versions 2.9.* and 2.10.*) and serialization (scala version 2.10.*).
+A bit later i will add serialization (scala version 2.10.*).
 
 
 Benchmarks

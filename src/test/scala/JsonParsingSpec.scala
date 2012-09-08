@@ -9,7 +9,7 @@ class JsonParsingSpec extends Specification {
  
   "json parser " should {
     "parse array with strings and empty arrays" in {
-      //run("""["asdasd","asdas"]""") must be equalTo (Arr("asdasd", "asdas"))
+      run("""["asdasd","asdas"]""") must be equalTo (Arr("asdasd", "asdas"))
       run("""["a\u0031b\n","asdas"]""") must be equalTo (Arr("a1b\n", "asdas"))
       run("""["asdasd"]""") must be equalTo (Arr("asdasd"))
       run("""[]""") must be equalTo (Arr())
