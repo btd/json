@@ -18,7 +18,7 @@ object Jsonbench extends Benchmark {
     benchmark("My") { com.github.btd.json.JsonParser.parse(json) }
   }
 
-  def benchmark(name: String)(f: => Any) = run(name, 1000000, 1000000)(f)
+  def benchmark(name: String)(f: => Any) = run(name, 10000000, 100000)(f)
 
   val json = """
 {

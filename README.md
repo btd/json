@@ -48,11 +48,11 @@ Results (you can try on your machine, and say me results - i am interesting):
 > run
 [info] Running Jsonbench 
 warmup... done
-Jackson 3191ms
+Jackson 303ms
 warmup... done
-lift-json 7073ms
+lift-json 548ms
 warmup... done
-My  4819ms
+My  443ms
 ```
 
 License
