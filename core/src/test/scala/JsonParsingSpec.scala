@@ -24,7 +24,13 @@ class JsonParsingSpec extends Specification {
       run("""[-0, 0, 0.1, "123", 100, null]""") must be equalTo (Arr(0, 0, 0.1, "123", 100, Null))
     }
 
-    //TODO specs on errors
+    " throws exception if document is not a strict json" in {
+      run("[") must throwA[reader.SyntaxException]
+      run("{") must throwA[reader.SyntaxException]
+      run("1231") must throwA[reader.SyntaxException]
+      run("[nul]") must throwA[reader.SyntaxException]
+      run("{null: null}") must throwA[reader.SyntaxException]
+    }
 
     "parse array with nulls and arrays" in {
       run("""[null]""") must be equalTo (Arr(Null))
