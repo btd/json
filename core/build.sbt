@@ -12,7 +12,7 @@ scalaBinaryVersion in ThisBuild <<= scalaBinaryVersion { v =>
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
-crossScalaVersions := Seq("2.9.2", "2.9.1", "2.9.1-1", "2.10.0-M7")
+crossScalaVersions := Seq("2.9.2", "2.9.1", "2.9.1-1", "2.10.0-SNAPSHOT")
 
 
 scalacOptions <++= scalaVersion map { v =>
@@ -24,6 +24,6 @@ scalacOptions <++= scalaVersion map { v =>
 
 libraryDependencies <+= 
   scalaVersion { 
-    case "2.10.0-M7" => ("org.specs2" % "specs2_2.10.0-M7" % "1.12.1.1" % "test")
+    case v if (v.startsWith("2.10")) => ("org.specs2" % "specs2_2.10.0-M7" % "1.12.1.1" % "test")
     case _ => ("org.specs2" %% "specs2" % "1.12.1" % "test")
   }

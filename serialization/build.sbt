@@ -10,6 +10,7 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 
 libraryDependencies <<= scalaVersion { scala_version =>
     Seq(
-        "org.scala-lang" % "scala-reflect" % scala_version % "provided"
+        "org.scala-lang" % "scala-reflect" % scala_version % "provided",
+        "com.github.btd" %% "json-core" % "0.1"
     )
 }

@@ -4,7 +4,7 @@ import Keys._
 object JsonBuild extends Build {
 
   lazy val root = Project(id = "json",
-                          base = file(".")) aggregate(core, serialization)
+                          base = file(".")) aggregate(core)
 
   lazy val core = Project(id = "json-core",
                          base = file("core"))
@@ -13,5 +13,5 @@ object JsonBuild extends Build {
                          base = file("benchmark")) dependsOn(core)
 
   lazy val serialization = Project(id = "json-serialization",
-                         base = file("serialization")) dependsOn(core)
+                         base = file("serialization"))
 }

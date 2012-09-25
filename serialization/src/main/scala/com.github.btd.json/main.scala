@@ -9,7 +9,7 @@ import scala.annotation.Annotation
 /**
  * Macros for traversing over class elements.
  */
-object clazz {
+/*object clazz {
     def valueIdentity[X](value: X, annotationArgs: Any): X = value
     def castValue[X](value: Option[Any], symbol: Symbol): Option[X] = value map (_.asInstanceOf[X])
 
@@ -215,7 +215,7 @@ object clazz {
         // Construct expression list like field1 :: field2 :: Field3 ... :: Nil
         foldIntoListExpr(fieldExprs)
     }
-}
+}*/
 
 
 class Test() extends annotation.StaticAnnotation
