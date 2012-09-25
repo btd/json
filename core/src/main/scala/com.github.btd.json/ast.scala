@@ -12,9 +12,13 @@ object Null extends Value
 
 case class Str(value: String) extends Value
 
-case class NumDouble(num: Double) extends Value
+trait Num[A] extends Value {
+	def value: A
+}
 
-case class NumLong(num: Long) extends Value
+case class NumDouble(value: Double) extends Num[Double]
+
+case class NumLong(value: Long) extends Num[Long]
 
 case class Arr(elements: List[Value]) extends Value
 

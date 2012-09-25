@@ -5,12 +5,14 @@ organization := "com.github.btd"
 
 scalaBinaryVersion in ThisBuild <<= scalaBinaryVersion { v =>
   if (v.startsWith("2.10"))
-    "2.10.0-M7"
+    "2.10"
   else
     v
 }
 
-crossScalaVersions in ThisBuild := Seq("2.9.2", "2.9.1", "2.9.1-1", "2.10.0-M7")
+resolvers += Resolver.sonatypeRepo("snapshots")
+
+crossScalaVersions := Seq("2.9.2", "2.9.1", "2.9.1-1", "2.10.0-M7")
 
 
 scalacOptions <++= scalaVersion map { v =>
@@ -20,7 +22,7 @@ scalacOptions <++= scalaVersion map { v =>
     Seq("-unchecked", "-deprecation")
 }
 
-libraryDependencies in ThisBuild <+= 
+libraryDependencies <+= 
   scalaVersion { 
     case "2.10.0-M7" => ("org.specs2" % "specs2_2.10.0-M7" % "1.12.1.1" % "test")
     case _ => ("org.specs2" %% "specs2" % "1.12.1" % "test")

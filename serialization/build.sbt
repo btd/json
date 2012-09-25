@@ -2,25 +2,14 @@ version := "0.1"
 
 organization := "com.github.btd"
 
-scalaVersion := "2.10.0-M7"
+scalaVersion := "2.10.0-SNAPSHOT"
 
-scalaBinaryVersion <<= scalaBinaryVersion { v =>
-  if (v.startsWith("2.10"))
-    "2.10.0-M7"
-  else
-    v
-}
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-language:implicitConversions")
 
-scalacOptions <++= scalaVersion map { v =>
-  if (v.startsWith("2.10"))
-    Seq("-unchecked", "-deprecation", "-feature", "-language:implicitConversions")
-  else
-    Seq("-unchecked", "-deprecation")
-}
+resolvers += Resolver.sonatypeRepo("snapshots")
 
 libraryDependencies <<= scalaVersion { scala_version =>
     Seq(
-        "org.scala-lang" % "scala-reflect" % scala_version % "provided",
-        "org.specs2" % "specs2_2.10.0-M7" % "1.12.1.1" % "test"
+        "org.scala-lang" % "scala-reflect" % scala_version % "provided"
     )
 }
