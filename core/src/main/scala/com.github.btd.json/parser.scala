@@ -540,8 +540,8 @@ class JsonReader(in: Reader) {
 }
 
 class JsonParser(r: JsonReader) {
-  @inline private def parseArray(): Arr = {
-    val arr = new collection.mutable.ListBuffer[Value]
+  @inline private def parseArray(): JArr = {
+    val arr = new collection.mutable.ListBuffer[JValue]
     r.beginArray()
 
     var t = r.peek()
@@ -552,11 +552,11 @@ class JsonParser(r: JsonReader) {
     }
 
     r.endArray()
-    Arr(arr.toList)
+    JArr(arr.toList)
   }
 
-  @inline private def parseObject(): Obj = {
-    val arr = new collection.mutable.ListBuffer[(String, Value)] //TODO maybe better to replace there to Map[String, Value] ?
+  @inline private def parseObject(): JObj = {
+    val arr = new collection.mutable.ListBuffer[(String, JValue)] //TODO maybe better to replace there to Map[String, Value] ?
 
     r.beginObject()
     var t = r.peek()
@@ -566,7 +566,7 @@ class JsonParser(r: JsonReader) {
     }
     r.endObject()
 
-    Obj(arr.toList)
+    JObj(arr.toList)
   }
 
   private def processToken(token: Token.Value) = {
@@ -574,19 +574,19 @@ class JsonParser(r: JsonReader) {
     token match {
       case Token.ArrayBegin => parseArray()
       case Token.ObjectBegin => parseObject()
-      case Token.DoubleQuoteStrBegin => Str(r.nextString())
-      case Token.Null => Null
-      case Token.True => True
-      case Token.False => False
+      case Token.DoubleQuoteStrBegin => JStr(r.nextString())
+      case Token.Null => JNull
+      case Token.True => JTrue
+      case Token.False => JFalse
       case Token.Num => 
         r.nextNumber() match {
-          case Right(doubleValue) => NumDouble(doubleValue)
-          case Left(longValue) => NumLong(longValue)
+          case Right(doubleValue) => JDouble(doubleValue)
+          case Left(longValue) => JLong(longValue)
         }
     }
   }
 
-  def parse(): Value = processToken(r.peek())
+  def parse(): JValue = processToken(r.peek())
 }
 
 object JsonParser {

@@ -9,19 +9,19 @@ class JsonParsingSpec extends Specification {
  
   "json parser " should {
     "parse array with strings and empty arrays" in {
-      run("""["asdasd","asdas"]""") must be equalTo (Arr("asdasd", "asdas"))
-      run("""["a\u0031b\n","asdas"]""") must be equalTo (Arr("a1b\n", "asdas"))
-      run("""["asdasd"]""") must be equalTo (Arr("asdasd"))
-      run("""[]""") must be equalTo (Arr())
-      run("""["sdfsd", []]""") must be equalTo (Arr("sdfsd", Arr()))
-      run("""["sdfsd", ["asdfsad"]]""") must be equalTo (Arr("sdfsd", Arr("asdfsad")))
-      run("""[[[]]]""") must be equalTo (Arr(Arr(Arr())))
-      run("""[[[], []]]""") must be equalTo (Arr(Arr(Arr(), Arr())))
-      run("""["sdfsd", [[],[]], ["asdfsad", []]]""") must be equalTo (Arr("sdfsd", Arr(Arr(), Arr()), Arr("asdfsad", Arr())))
+      run("""["asdasd","asdas"]""") must be equalTo (JArr("asdasd", "asdas"))
+      run("""["a\u0031b\n","asdas"]""") must be equalTo (JArr("a1b\n", "asdas"))
+      run("""["asdasd"]""") must be equalTo (JArr("asdasd"))
+      run("""[]""") must be equalTo (JArr())
+      run("""["sdfsd", []]""") must be equalTo (JArr("sdfsd", JArr()))
+      run("""["sdfsd", ["asdfsad"]]""") must be equalTo (JArr("sdfsd", JArr("asdfsad")))
+      run("""[[[]]]""") must be equalTo (JArr(JArr(JArr())))
+      run("""[[[], []]]""") must be equalTo (JArr(JArr(JArr(), JArr())))
+      run("""["sdfsd", [[],[]], ["asdfsad", []]]""") must be equalTo (JArr("sdfsd", JArr(JArr(), JArr()), JArr("asdfsad", JArr())))
     }
 
     "parse array with numbers" in {
-      run("""[-0, 0, 0.1, "123", 100, null]""") must be equalTo (Arr(0, 0, 0.1, "123", 100, Null))
+      run("""[-0, 0, 0.1, "123", 100, null]""") must be equalTo (JArr(0, 0, 0.1, "123", 100, JNull))
     }
 
     " throws exception if document is not a strict json" in {
@@ -33,24 +33,24 @@ class JsonParsingSpec extends Specification {
     }
 
     "parse array with nulls and arrays" in {
-      run("""[null]""") must be equalTo (Arr(Null))
-      run("""[null, null]""") must be equalTo (Arr(Null, Null))
-      run("""[[null], [null]]""") must be equalTo (Arr(Arr(Null), Arr(Null)))
-      run("""[[null, []], null, []]""") must be equalTo (Arr(Arr(Null, Arr()), Null, Arr()))
+      run("""[null]""") must be equalTo (JArr(JNull))
+      run("""[null, null]""") must be equalTo (JArr(JNull, JNull))
+      run("""[[null], [null]]""") must be equalTo (JArr(JArr(JNull), JArr(JNull)))
+      run("""[[null, []], null, []]""") must be equalTo (JArr(JArr(JNull, JArr()), JNull, JArr()))
     }
 
     "parse array with booleans and arrays" in {
-      run("""[true]""") must be equalTo (Arr(true))
-      run("""[null, false]""") must be equalTo (Arr(Null, false))
-      run("""[[true, false], [null]]""") must be equalTo (Arr(Arr(true, false), Arr(Null)))
-      run("""[[null, []], true, []]""") must be equalTo (Arr(Arr(Null, Arr()), true, Arr()))
+      run("""[true]""") must be equalTo (JArr(true))
+      run("""[null, false]""") must be equalTo (JArr(JNull, false))
+      run("""[[true, false], [null]]""") must be equalTo (JArr(JArr(true, false), JArr(JNull)))
+      run("""[[null, []], true, []]""") must be equalTo (JArr(JArr(JNull, JArr()), true, JArr()))
     }
 
     "parse objects" in {
-      run("""{}""") must be equalTo (Obj())
-      run("""{"key": "value"}""") must be equalTo (Obj(("key", Str("value"))))
-      run("""{"key": "value" , "key" : true, "key" : false, "key" : null, "key" : [], "key" : {}}""") must be equalTo (Obj(("key", "value"),("key", true), ("key", false), ("key", Null), ("key", Arr()), ("key", Obj())))
-      run("""{"key": {"key": [{}, {}]}}""") must be equalTo (Obj(("key", Obj(("key", Arr(Obj(), Obj()))))))
+      run("""{}""") must be equalTo (JObj())
+      run("""{"key": "value"}""") must be equalTo (JObj(("key", JStr("value"))))
+      run("""{"key": "value" , "key" : true, "key" : false, "key" : null, "key" : [], "key" : {}}""") must be equalTo (JObj(("key", "value"),("key", true), ("key", false), ("key", JNull), ("key", JArr()), ("key", JObj())))
+      run("""{"key": {"key": [{}, {}]}}""") must be equalTo (JObj(("key", JObj(("key", JArr(JObj(), JObj()))))))
     }
   }
 }

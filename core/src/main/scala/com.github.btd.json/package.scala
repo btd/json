@@ -1,37 +1,37 @@
 package com.github.btd
 
 package object json {
-  type Value = ast.Value
+  type JValue = ast.JValue
 
-  val True = ast.True
-  val False = ast.False
+  val JTrue = ast.JTrue
+  val JFalse = ast.JFalse
 
-  val Null = ast.Null
+  val JNull = ast.JNull
 
-  type Str = ast.Str
-  val Str = ast.Str
+  type JStr = ast.JStr
+  val JStr = ast.JStr
 
-  type Arr = ast.Arr
-  val Arr = ast.Arr
+  type JArr = ast.JArr
+  val JArr = ast.JArr
 
-  type Obj = ast.Obj
-  val Obj = ast.Obj
+  type JObj = ast.JObj
+  val JObj = ast.JObj
 
-  type NumDouble = ast.NumDouble
-  val NumDouble = ast.NumDouble
+  type JDouble = ast.JDouble
+  val JDouble = ast.JDouble
 
-  type NumLong = ast.NumLong
-  val NumLong = ast.NumLong
+  type JLong = ast.JLong
+  val JLong = ast.JLong
 
   val JsonParser = reader.JsonParser
 
   val JsonPrinter = printer.JsonPrinter
 
-  implicit def stringToJsonStr(str: String) = Str(str)
+  implicit def stringToJsonStr(str: String) = JStr(str)
 
-  implicit def booleanToJsonBool(bool: Boolean) = if(bool) True else False
+  implicit def booleanToJsonBool(bool: Boolean) = if(bool) JTrue else JFalse
 
-  implicit def doubleToNumDouble(double: Double) = NumDouble(double)
+  implicit def doubleToNumDouble(double: Double) = JDouble(double)
 
-  implicit def longToNumLong(long: Long) = NumLong(long)
+  implicit def longToNumLong(long: Long) = JLong(long)
 }

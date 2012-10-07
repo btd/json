@@ -2,36 +2,36 @@ package com.github.btd.json
 package ast
 
 //common json value
-trait Value
+trait JValue
 
-object True extends Value
+object JTrue extends JValue
 
-object False extends Value
+object JFalse extends JValue
 
-object Null extends Value
+object JNull extends JValue
 
-case class Str(value: String) extends Value
+case class JStr(value: String) extends JValue
 
-trait Num[A] extends Value {
+trait JNum[A] extends JValue {
 	def value: A
 }
 
-case class NumDouble(value: Double) extends Num[Double]
+case class JDouble(value: Double) extends JNum[Double]
 
-case class NumLong(value: Long) extends Num[Long]
+case class JLong(value: Long) extends JNum[Long]
 
-case class Arr(elements: List[Value]) extends Value
+case class JArr(elements: List[JValue]) extends JValue
 
-object Arr {
-  def apply():Arr = Arr(List())
+object JArr {
+  def apply():JArr = JArr(Nil)
 
-  def apply(elements: Value*):Arr = Arr(elements.toList)
+  def apply(elements: JValue*):JArr = JArr(elements.toList)
 }
 
-case class Obj(elements: List[(String, Value)]) extends Value
+case class JObj(elements: List[(String, JValue)]) extends JValue
 
-object Obj {
-  def apply():Obj = Obj(List())
+object JObj {
+  def apply():JObj = JObj(Nil)
 
-  def apply(elements: (String, Value)*):Obj = Obj(elements.toList)
+  def apply(elements: (String, JValue)*):JObj = JObj(elements.toList)
 }

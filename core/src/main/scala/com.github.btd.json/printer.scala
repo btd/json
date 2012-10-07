@@ -4,7 +4,7 @@ package printer
 import ast._
 
 trait Printer {
-  def print(value: Value): String
+  def print(value: JValue): String
 
   protected def quote(s: String): String = {
     val buf = new StringBuilder
@@ -27,16 +27,16 @@ trait Printer {
 }
 
 class CompactPrinter extends Printer {
-  def print(value: Value):String = {
+  def print(value: JValue):String = {
     value match {
-      case True => "true"
-      case False => "false"
-      case Null => "null"
-      case Str(str) => "\"" + quote(str) + "\""
-      case NumDouble(num) => num.toString
-      case NumLong(num) => num.toString
-      case Arr(elements) => elements.map(print).mkString("[", ",", "]")
-      case Obj(pairs) => pairs.map(p => "\"" + quote(p._1) + "\"" + ":" + print(p._2)).mkString("{", ",", "}")
+      case JTrue => "true"
+      case JFalse => "false"
+      case JNull => "null"
+      case JStr(str) => "\"" + quote(str) + "\""
+      case JDouble(num) => num.toString
+      case JLong(num) => num.toString
+      case JArr(elements) => elements.map(print).mkString("[", ",", "]")
+      case JObj(pairs) => pairs.map(p => "\"" + quote(p._1) + "\"" + ":" + print(p._2)).mkString("{", ",", "}")
     }
   }
 }
@@ -49,7 +49,7 @@ class PrettyPrinter extends Printer {
   import text.Document
   import text.Document._
 
-  def print(value: Value): String = {
+  def print(value: JValue): String = {
     val writer = new java.io.StringWriter
     documentWrap(value).format(0, writer)
     writer.toString
@@ -59,16 +59,16 @@ class PrettyPrinter extends Printer {
     if (docs.isEmpty) empty
     else docs.reduceLeft((d1, d2) => d1 :: p :: d2)
 
-  private def documentWrap(value: Value): Document = {
+  private def documentWrap(value: JValue): Document = {
     value match {
-      case True => text("true")
-      case False => text("false")
-      case Null => text("null")
-      case Str(str) => text("\"" + quote(str) + "\"")
-      case NumDouble(num) => text(num.toString)
-      case NumLong(num) => text(num.toString)
-      case Arr(elements) => text("[") :: punctuate(text(","), elements.map(documentWrap)) :: text("]")
-      case Obj(pairs) => 
+      case JTrue => text("true")
+      case JFalse => text("false")
+      case JNull => text("null")
+      case JStr(str) => text("\"" + quote(str) + "\"")
+      case JDouble(num) => text(num.toString)
+      case JLong(num) => text(num.toString)
+      case JArr(elements) => text("[") :: punctuate(text(","), elements.map(documentWrap)) :: text("]")
+      case JObj(pairs) => 
         text("{") :: 
         nest(2, break :: 
           punctuate(text(",") :: 
@@ -83,6 +83,6 @@ class PrettyPrinter extends Printer {
 object JsonPrinter {
   private val compactPrinter = new CompactPrinter
   private val prettyPrinter = new PrettyPrinter
-  def compact(value: Value) = compactPrinter.print(value)
-  def pretty(value: Value) = prettyPrinter.print(value)
+  def compact(value: JValue) = compactPrinter.print(value)
+  def pretty(value: JValue) = prettyPrinter.print(value)
 }
